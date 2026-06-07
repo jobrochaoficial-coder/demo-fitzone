@@ -1,0 +1,1437 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitZone Gym | Guadalajara, Jalisco</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { max-width: 100%; overflow-x: hidden; }
+
+        :root {
+            --black: #0a0a0a;
+            --dark: #111111;
+            --dark-2: #1a1a1a;
+            --gray: #2a2a2a;
+            --white: #ffffff;
+            --orange: #ff6b00;
+            --orange-dark: #cc5500;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--black);
+            color: var(--white);
+            overflow-x: hidden;
+        }
+
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: var(--black); }
+        ::-webkit-scrollbar-thumb { background: var(--orange); border-radius: 2px; }
+
+        /* ── NAVBAR ── */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 22px 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.4s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(10,10,10,0.96);
+            backdrop-filter: blur(20px);
+            padding: 14px 60px;
+            border-bottom: 1px solid rgba(255,107,0,0.15);
+        }
+
+        .nav-logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            color: var(--white);
+            letter-spacing: 3px;
+            text-decoration: none;
+        }
+        .nav-logo span { color: var(--orange); }
+
+        .nav-links { display: flex; gap: 40px; list-style: none; }
+
+        .nav-links a {
+            color: rgba(255,255,255,0.65);
+            text-decoration: none;
+            font-size: 0.82rem;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover { color: var(--orange); }
+
+        .nav-cta {
+            background: var(--orange) !important;
+            color: var(--white) !important;
+            padding: 10px 24px;
+            border-radius: 4px;
+            font-weight: 700 !important;
+        }
+        .nav-cta:hover { background: var(--orange-dark) !important; }
+
+        /* ── HERO ── */
+        #hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(to right,
+                    rgba(0,0,0,0.92) 0%,
+                    rgba(0,0,0,0.75) 45%,
+                    rgba(0,0,0,0.35) 100%),
+                linear-gradient(to bottom,
+                    rgba(0,0,0,0.5) 0%,
+                    transparent 25%,
+                    transparent 70%,
+                    rgba(0,0,0,0.7) 100%),
+                url('assets/hero-bg.webp');
+            background-size: cover;
+            background-position: center right;
+            background-repeat: no-repeat;
+        }
+
+        .hero-glow {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 500px;
+            height: 300px;
+            background: radial-gradient(ellipse at bottom left, rgba(255,107,0,0.12) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 0 60px;
+            max-width: 950px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255,107,0,0.1);
+            border: 1px solid rgba(255,107,0,0.3);
+            color: var(--orange);
+            padding: 8px 20px;
+            border-radius: 100px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 32px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.8s ease 0.2s forwards;
+        }
+
+        .badge-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--orange);
+            border-radius: 50%;
+            animation: pulseDot 2s infinite;
+        }
+
+        @keyframes pulseDot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.7); }
+        }
+
+        .hero-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(5rem, 11vw, 10rem);
+            line-height: 0.88;
+            letter-spacing: 2px;
+            margin-bottom: 32px;
+            opacity: 0;
+            transform: translateY(40px);
+            animation: fadeUp 0.9s ease 0.4s forwards;
+        }
+
+        .hero-title .accent { color: var(--orange); display: block; }
+        .hero-title .thin { font-size: 0.6em; letter-spacing: 6px; color: rgba(255,255,255,0.4); }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.55);
+            line-height: 1.75;
+            max-width: 520px;
+            margin-bottom: 52px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.8s ease 0.65s forwards;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.8s ease 0.85s forwards;
+        }
+
+        .btn-primary {
+            background: var(--orange);
+            color: var(--white);
+            padding: 17px 44px;
+            border-radius: 4px;
+            font-weight: 700;
+            font-size: 0.92rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+        }
+
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(255,255,255,0.12);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+        .btn-primary:hover::after { transform: translateX(0); }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(255,107,0,0.45);
+        }
+
+        .btn-outline {
+            color: var(--white);
+            border: 1px solid rgba(255,255,255,0.28);
+            padding: 17px 44px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.92rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        .btn-outline:hover { border-color: var(--orange); color: var(--orange); }
+
+        .hero-stats {
+            position: absolute;
+            bottom: 60px;
+            right: 60px;
+            display: flex;
+            gap: 60px;
+            opacity: 0;
+            animation: fadeIn 1s ease 1.3s forwards;
+        }
+
+        .stat-item { text-align: center; }
+
+        .stat-number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3.2rem;
+            color: var(--orange);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 0.72rem;
+            color: rgba(255,255,255,0.45);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 4px;
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            animation: fadeIn 1s ease 1.6s forwards;
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 60px;
+            background: linear-gradient(to bottom, var(--orange), transparent);
+            margin: 0 auto;
+            animation: scrollAnim 2s ease infinite;
+        }
+
+        @keyframes scrollAnim {
+            0% { transform: scaleY(0); transform-origin: top; }
+            50% { transform: scaleY(1); transform-origin: top; }
+            51% { transform: scaleY(1); transform-origin: bottom; }
+            100% { transform: scaleY(0); transform-origin: bottom; }
+        }
+
+        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { to { opacity: 1; } }
+
+        /* ── SECTIONS BASE ── */
+        section { padding: 120px 60px; }
+
+        .section-tag {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.73rem;
+            font-weight: 600;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--orange);
+            margin-bottom: 16px;
+        }
+        .section-tag::before { content: ''; width: 30px; height: 2px; background: var(--orange); }
+
+        .section-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2.8rem, 5vw, 4.8rem);
+            letter-spacing: 2px;
+            line-height: 0.95;
+            margin-bottom: 20px;
+        }
+
+        .section-desc {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.5);
+            line-height: 1.85;
+        }
+
+        /* ── SCROLL REVEAL ── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.75s ease, transform 0.75s ease;
+        }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-40px);
+            transition: opacity 0.75s ease, transform 0.75s ease;
+        }
+        .reveal-left.visible { opacity: 1; transform: translateX(0); }
+
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(40px);
+            transition: opacity 0.75s ease, transform 0.75s ease;
+        }
+        .reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+        .d1 { transition-delay: 0.1s; }
+        .d2 { transition-delay: 0.2s; }
+        .d3 { transition-delay: 0.3s; }
+        .d4 { transition-delay: 0.4s; }
+        .d5 { transition-delay: 0.5s; }
+
+        /* ── SERVICES ── */
+        #servicios { background: var(--dark); }
+
+        .services-header {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: end;
+            margin-bottom: 70px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .service-card {
+            background: var(--dark-2);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 14px;
+            padding: 40px 28px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: var(--orange);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+            transform-origin: left;
+        }
+
+        .service-card:hover {
+            border-color: rgba(255,107,0,0.2);
+            transform: translateY(-10px);
+            box-shadow: 0 24px 60px rgba(0,0,0,0.6);
+        }
+        .service-card:hover::before { transform: scaleX(1); }
+
+        .service-icon {
+            font-size: 2.8rem;
+            margin-bottom: 24px;
+            display: block;
+        }
+
+        .service-name {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.6rem;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .service-desc {
+            font-size: 0.875rem;
+            color: rgba(255,255,255,0.45);
+            line-height: 1.75;
+        }
+
+        /* ── PRICING ── */
+        #precios { background: var(--black); }
+
+        .pricing-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+        .pricing-header .section-tag { justify-content: center; }
+        .pricing-header .section-tag::before { display: none; }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            max-width: 1050px;
+            margin: 0 auto;
+        }
+
+        .pricing-card {
+            background: var(--dark-2);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 16px;
+            padding: 52px 40px;
+            position: relative;
+            transition: all 0.4s ease;
+        }
+
+        .pricing-card.featured {
+            background: linear-gradient(160deg, rgba(255,107,0,0.12), rgba(255,107,0,0.04));
+            border-color: rgba(255,107,0,0.35);
+            transform: scale(1.04);
+        }
+
+        .pricing-card:hover { transform: translateY(-10px); box-shadow: 0 30px 80px rgba(0,0,0,0.5); }
+        .pricing-card.featured:hover { transform: scale(1.04) translateY(-10px); }
+
+        .pricing-badge-pill {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--orange);
+            color: var(--white);
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 6px 22px;
+            border-radius: 100px;
+            white-space: nowrap;
+        }
+
+        .pricing-plan {
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--orange);
+            margin-bottom: 20px;
+        }
+
+        .pricing-price {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 4.5rem;
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .pricing-price .cur {
+            font-size: 2rem;
+            vertical-align: top;
+            margin-top: 10px;
+            display: inline-block;
+        }
+
+        .pricing-period {
+            font-size: 0.82rem;
+            color: rgba(255,255,255,0.35);
+            margin-bottom: 40px;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 40px;
+        }
+
+        .pricing-features li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.7);
+            padding: 11px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .pricing-features li::before {
+            content: '✓';
+            color: var(--orange);
+            font-weight: 700;
+            font-size: 0.75rem;
+            width: 20px;
+            height: 20px;
+            background: rgba(255,107,0,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        /* ── GALLERY ── */
+        #galeria { background: var(--dark); }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-template-rows: repeat(2, 300px);
+            gap: 16px;
+            margin-top: 60px;
+        }
+
+        .gallery-item { border-radius: 12px; overflow: hidden; }
+        .gallery-item:nth-child(1) { grid-column: 1/5; }
+        .gallery-item:nth-child(2) { grid-column: 5/9; }
+        .gallery-item:nth-child(3) { grid-column: 9/13; grid-row: 1/3; }
+        .gallery-item:nth-child(4) { grid-column: 1/9; grid-row: 2/3; }
+
+        .gallery-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover .gallery-img { transform: scale(1.06); }
+
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .gallery-item:hover .gallery-overlay { opacity: 1; }
+
+        .gallery-notice {
+            margin-top: 24px;
+            padding: 16px 28px;
+            background: rgba(255,107,0,0.04);
+            border: 1px solid rgba(255,107,0,0.12);
+            border-radius: 8px;
+            font-size: 0.84rem;
+            color: rgba(255,255,255,0.45);
+            text-align: center;
+        }
+        .gallery-notice strong { color: var(--orange); }
+        .gallery-notice code {
+            background: rgba(255,255,255,0.05);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+
+        /* ── CTA ── */
+        #cta {
+            background: var(--black);
+            text-align: center;
+            padding: 160px 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-glow {
+            position: absolute;
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, rgba(255,107,0,0.1) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+
+        .cta-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(3.5rem, 8vw, 8rem);
+            letter-spacing: 2px;
+            line-height: 0.95;
+            margin-bottom: 26px;
+            position: relative;
+        }
+
+        .cta-desc {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.5);
+            max-width: 480px;
+            margin: 0 auto 52px;
+            line-height: 1.75;
+            position: relative;
+        }
+
+        .cta-actions { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; position: relative; }
+
+        /* ── CONTACT ── */
+        #contacto { background: var(--dark); }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 100px;
+            align-items: start;
+        }
+
+        .contact-items { display: flex; flex-direction: column; gap: 36px; }
+
+        .contact-item { display: flex; gap: 18px; align-items: flex-start; }
+
+        .ci-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(255,107,0,0.08);
+            border: 1px solid rgba(255,107,0,0.18);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .ci-content h4 {
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--orange);
+            margin-bottom: 6px;
+        }
+
+        .ci-content p { font-size: 1rem; color: rgba(255,255,255,0.8); line-height: 1.5; }
+
+        a.contact-item {
+            text-decoration: none;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        /* El valor (teléfono, email, ubicación) siempre en naranja */
+        a.contact-item .ci-content p {
+            color: var(--orange);
+            font-weight: 500;
+        }
+        /* Subrayado sutil solo en teléfono y email (no ubicación) */
+        a.contact-item[href^="tel"] .ci-content p,
+        a.contact-item[href^="mailto"] .ci-content p {
+            text-decoration: underline;
+            text-decoration-color: rgba(255,107,0,0.4);
+            text-underline-offset: 3px;
+        }
+        /* Hover desktop */
+        a.contact-item:hover .ci-icon {
+            background: rgba(255,107,0,0.18);
+            border-color: rgba(255,107,0,0.5);
+        }
+        a.contact-item:hover .ci-content p {
+            color: var(--orange-light, #ff8c33);
+            text-decoration-color: rgba(255,107,0,0.7);
+        }
+        /* Feedback táctil en móvil */
+        a.contact-item:active {
+            opacity: 0.65;
+        }
+        a.contact-item:active .ci-icon {
+            background: rgba(255,107,0,0.25);
+        }
+
+        .hours-box {
+            background: rgba(255,107,0,0.04);
+            border: 1px solid rgba(255,107,0,0.1);
+            border-radius: 12px;
+            padding: 28px 30px;
+        }
+
+        .hours-box h4 {
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--orange);
+            margin-bottom: 16px;
+        }
+
+        .hours-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 9px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.65);
+        }
+        .hours-row:last-child { border-bottom: none; }
+
+        /* Form */
+        .contact-form { display: flex; flex-direction: column; gap: 18px; }
+
+        .form-group { display: flex; flex-direction: column; gap: 7px; }
+
+        .form-group label {
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.45);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.09);
+            border-radius: 8px;
+            padding: 14px 18px;
+            color: var(--white);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: var(--orange);
+            background: rgba(255,107,0,0.04);
+        }
+
+        .form-group textarea { resize: vertical; min-height: 120px; }
+        .form-group select option { background: var(--dark-2); }
+
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+
+        /* ── MAPA ── */
+        .map-container {
+            margin-top: 60px;
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.07);
+            height: 380px;
+            position: relative;
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            display: block;
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            background: var(--black);
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding: 36px 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .footer-logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            letter-spacing: 3px;
+        }
+        .footer-logo span { color: var(--orange); }
+
+        .footer-copy { font-size: 0.78rem; color: rgba(255,255,255,0.28); }
+
+
+        /* ── WHATSAPP FLOAT ── */
+        .wa-float {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 52px;
+            height: 52px;
+            background: #25d366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            box-shadow: 0 4px 20px rgba(37,211,102,0.45);
+            text-decoration: none;
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: waFloat 3s ease infinite;
+        }
+        .wa-float svg { width: 28px; height: 28px; fill: #fff; }
+        .wa-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 28px rgba(37,211,102,0.6);
+            animation: none;
+        }
+
+        @keyframes waFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+
+        /* ── HAMBURGER ── */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+            cursor: pointer;
+            padding: 6px;
+            background: none;
+            border: none;
+            position: relative;
+            z-index: 1002;
+        }
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--white);
+            border-radius: 2px;
+            transition: all 0.35s ease;
+        }
+        .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        /* ── RESPONSIVE 1200px ── */
+        @media (max-width: 1200px) {
+            .services-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        /* ── RESPONSIVE 1024px ── */
+        @media (max-width: 1024px) {
+            nav { padding: 18px 36px; }
+            nav.scrolled { padding: 12px 36px; }
+            section { padding: 80px 36px; }
+            .hero-content { padding: 0 36px; }
+            .hero-stats { right: 36px; gap: 30px; }
+            .services-header { grid-template-columns: 1fr; gap: 20px; }
+            .pricing-grid { grid-template-columns: 1fr; max-width: 460px; }
+            .pricing-card.featured { transform: scale(1); }
+            .pricing-card.featured:hover { transform: translateY(-10px); }
+            .contact-grid { grid-template-columns: 1fr; gap: 50px; }
+            footer { flex-direction: column; text-align: center; gap: 10px; }
+        }
+
+        /* ── RESPONSIVE 768px ── */
+        @media (max-width: 768px) {
+            /* Navbar móvil */
+            nav { padding: 16px 20px; z-index: 1001; }
+            nav.scrolled { padding: 12px 20px; }
+            .hamburger { display: flex; }
+            .nav-links {
+                display: flex;
+                flex-direction: column;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                background: rgba(8,8,8,0.97);
+                backdrop-filter: blur(24px);
+                -webkit-backdrop-filter: blur(24px);
+                padding: 80px 28px 32px;
+                gap: 4px;
+                z-index: 1000;
+                transform: translateY(-110%);
+                transition: transform 0.38s cubic-bezier(0.4, 0, 0.2, 1);
+                box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+                border-bottom: 1px solid rgba(255,107,0,0.15);
+            }
+            .nav-links.open { transform: translateY(0); }
+            .nav-links li a {
+                display: block;
+                padding: 15px 0;
+                font-size: 1rem;
+                border-bottom: 1px solid rgba(255,255,255,0.06);
+                letter-spacing: 2px;
+                color: rgba(255,255,255,0.8);
+            }
+            .nav-links li:last-child a {
+                border-bottom: none;
+                margin-top: 10px;
+                padding: 14px;
+                text-align: center;
+                border-radius: 6px;
+            }
+
+            /* Hero móvil */
+            #hero {
+                height: auto;
+                min-height: 100svh;
+                min-height: 100vh;
+                padding: 64px 0 0;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: stretch;
+            }
+            .hero-bg { background-position: center center; }
+            /* hero-content ocupa todo el espacio disponible y centra su contenido */
+            .hero-content {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                padding: 24px 20px 0;
+                max-width: 100%;
+            }
+            .hero-badge { margin-bottom: 18px; }
+            .hero-title { font-size: clamp(2.6rem, 12vw, 3.8rem); margin-bottom: 14px; }
+            .hero-subtitle { font-size: 0.92rem; margin-bottom: 24px; max-width: 100%; }
+            .hero-actions { flex-direction: column; gap: 10px; width: 100%; }
+            .hero-actions .btn-primary,
+            .hero-actions .btn-outline { text-align: center; width: 100%; max-width: 300px; padding: 14px 20px; }
+            /* Stats al fondo con padding propio, sin quedar cortados */
+            .hero-stats {
+                position: static;
+                margin: 0;
+                padding: 24px 20px 28px;
+                display: flex;
+                justify-content: space-around;
+                flex-wrap: wrap;
+                gap: 12px;
+                width: 100%;
+                border-top: 1px solid rgba(255,255,255,0.07);
+            }
+            .scroll-hint { display: none; }
+
+            /* Secciones */
+            section { padding: 70px 20px; }
+
+            /* Servicios */
+            .services-grid { grid-template-columns: 1fr; gap: 16px; }
+            .services-header { margin-bottom: 40px; }
+
+            /* Precios */
+            .pricing-grid { max-width: 100%; }
+            .pricing-header { margin-bottom: 50px; }
+
+            /* Galería */
+            .gallery-grid {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+            }
+            .gallery-item { height: 220px; }
+            .gallery-item:nth-child(n) { grid-column: auto !important; grid-row: auto !important; }
+
+            /* CTA */
+            #cta { padding: 80px 20px; }
+            .cta-actions { flex-direction: column; align-items: center; gap: 12px; }
+            .cta-actions .btn-primary,
+            .cta-actions .btn-outline { width: 100%; max-width: 300px; text-align: center; }
+
+            /* Contacto */
+            .contact-grid { gap: 40px; }
+            .form-row { grid-template-columns: 1fr; }
+            .map-container { height: 260px; margin-top: 40px; border-radius: 10px; }
+
+            /* Footer */
+            footer { padding: 28px 20px; }
+        }
+
+        /* ── RESPONSIVE 480px ── */
+        @media (max-width: 480px) {
+            .hero-title { font-size: clamp(2.4rem, 12vw, 3.2rem); }
+            .hero-badge { font-size: 0.65rem; padding: 6px 12px; letter-spacing: 1px; flex-wrap: wrap; justify-content: center; text-align: center; max-width: 100%; }
+            .hero-stats { gap: 16px; }
+            .stat-number { font-size: 2.6rem; }
+            .stat-label { font-size: 0.65rem; }
+            .section-title { font-size: clamp(2rem, 10vw, 3rem); }
+            .section-tag { font-size: 0.65rem; letter-spacing: 3px; }
+            section { padding: 60px 16px; }
+            nav { padding: 14px 16px; }
+            .service-card { padding: 30px 20px; }
+
+            /* Tarjetas de planes: compactas pero legibles */
+            .pricing-card { padding: 28px 20px; }
+            .pricing-plan { margin-bottom: 10px; }
+            .pricing-price { font-size: 2.8rem; }
+            .pricing-price .cur { font-size: 1.3rem; margin-top: 6px; }
+            .pricing-period { margin-bottom: 18px; }
+            .pricing-features { margin-bottom: 20px; }
+            .pricing-features li { padding: 7px 0; font-size: 0.85rem; gap: 10px; }
+            .gallery-item { height: 180px; }
+            .hours-box { padding: 20px 16px; }
+            .contact-items { gap: 24px; }
+            .btn-primary, .btn-outline { padding: 14px 20px; font-size: 0.85rem; }
+            /* Campos de formulario grandes para dedos */
+            .form-group input,
+            .form-group textarea,
+            .form-group select { padding: 16px 14px; font-size: 1rem; min-height: 50px; }
+            .form-group textarea { min-height: 110px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+    <a href="#hero" class="nav-logo">Fit<span>Zone</span></a>
+    <ul class="nav-links" id="navLinks">
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#precios">Precios</a></li>
+        <li><a href="#galeria">Galería</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+        <li><a href="https://wa.me/523338156240?text=Hola%2C%20quiero%20informaci%C3%B3n%20para%20unirme%20a%20FitZone" target="_blank" class="nav-cta">Únete Ya</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menú">
+        <span></span><span></span><span></span>
+    </button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-glow"></div>
+
+    <div class="hero-content">
+        <div class="hero-badge">
+            <div class="badge-dot"></div>
+            Guadalajara, Jalisco · Desde $350/mes
+        </div>
+
+        <h1 class="hero-title">
+            Forja tu
+            <span class="accent">Mejor</span>
+            <span class="thin">Versión</span>
+        </h1>
+
+        <p class="hero-subtitle">
+            Musculación, cardio, clases grupales y entrenamiento personalizado.
+            Tu transformación empieza aquí, en FitZone Gym.
+        </p>
+
+        <div class="hero-actions">
+            <a href="#precios" class="btn-primary">Ver Planes</a>
+            <a href="#contacto" class="btn-outline">Contáctanos</a>
+        </div>
+    </div>
+
+    <div class="hero-stats">
+        <div class="stat-item">
+            <div class="stat-number" data-count="500">0</div>
+            <div class="stat-label">Miembros</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number" data-count="4">0</div>
+            <div class="stat-label">Servicios</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number" data-count="16">0</div>
+            <div class="stat-label">Horas/día</div>
+        </div>
+    </div>
+
+    <div class="scroll-hint">
+        <div class="scroll-line"></div>
+    </div>
+</section>
+
+<!-- SERVICIOS -->
+<section id="servicios">
+    <div class="services-header">
+        <div>
+            <div class="section-tag reveal">Nuestros Servicios</div>
+            <h2 class="section-title reveal d1">Todo lo que<br>necesitas</h2>
+        </div>
+        <p class="section-desc reveal d2" style="max-width:460px;">
+            Equipamiento de última generación, instructores certificados y un ambiente diseñado para llevarte al siguiente nivel.
+        </p>
+    </div>
+
+    <div class="services-grid">
+        <div class="service-card reveal d1">
+            <span class="service-icon">🏋️</span>
+            <h3 class="service-name">Musculación</h3>
+            <p class="service-desc">Zona de pesas completa con equipamiento de alta calidad para desarrollar fuerza y masa muscular.</p>
+        </div>
+        <div class="service-card reveal d2">
+            <span class="service-icon">🏃</span>
+            <h3 class="service-name">Cardio</h3>
+            <p class="service-desc">Caminadoras, elípticas y bicicletas de última generación para maximizar tu resistencia cardiovascular.</p>
+        </div>
+        <div class="service-card reveal d3">
+            <span class="service-icon">🤸</span>
+            <h3 class="service-name">Clases Grupales</h3>
+            <p class="service-desc">Spinning, Zumba, Yoga, HIIT y más. Entrena en grupo con la mejor energía y motivación.</p>
+        </div>
+        <div class="service-card reveal d4">
+            <span class="service-icon">👤</span>
+            <h3 class="service-name">Entrenamiento Personal</h3>
+            <p class="service-desc">Coaches certificados diseñan tu rutina a medida y te guían paso a paso hasta tu meta.</p>
+        </div>
+    </div>
+</section>
+
+<!-- PRECIOS -->
+<section id="precios">
+    <div class="pricing-header">
+        <div class="section-tag reveal">Membresías</div>
+        <h2 class="section-title reveal d1">Elige tu plan</h2>
+        <p class="section-desc reveal d2" style="margin:0 auto;max-width:420px;">
+            Sin contratos. Sin pretextos. Solo resultados.
+        </p>
+    </div>
+
+    <div class="pricing-grid">
+        <div class="pricing-card reveal d1">
+            <div class="pricing-plan">Básico</div>
+            <div class="pricing-price"><span class="cur">$</span>350</div>
+            <div class="pricing-period">por mes</div>
+            <ul class="pricing-features">
+                <li>Acceso zona de cardio</li>
+                <li>Acceso zona de pesas</li>
+                <li>Vestidores y regaderas</li>
+                <li>Lun–Vie 6am–10pm</li>
+                <li>Sáb 7am–8pm</li>
+            </ul>
+            <a href="https://wa.me/523338156240?text=Hola%2C%20me%20interesa%20el%20plan%20B%C3%A1sico%20de%20FitZone%20(%24350%2Fmes)" target="_blank" class="btn-outline" style="display:block;text-align:center;">Empezar</a>
+        </div>
+
+        <div class="pricing-card featured reveal d2">
+            <div class="pricing-badge-pill">⚡ Más Popular</div>
+            <div class="pricing-plan">Premium</div>
+            <div class="pricing-price"><span class="cur">$</span>550</div>
+            <div class="pricing-period">por mes</div>
+            <ul class="pricing-features">
+                <li>Todo lo del plan Básico</li>
+                <li>Clases grupales ilimitadas</li>
+                <li>Evaluación física mensual</li>
+                <li>App de seguimiento</li>
+                <li>Descuento en suplementos</li>
+            </ul>
+            <a href="https://wa.me/523338156240?text=Hola%2C%20me%20interesa%20el%20plan%20Premium%20de%20FitZone%20(%24550%2Fmes)" target="_blank" class="btn-primary" style="display:block;text-align:center;">Empezar</a>
+        </div>
+
+        <div class="pricing-card reveal d3">
+            <div class="pricing-plan">Elite</div>
+            <div class="pricing-price"><span class="cur">$</span>850</div>
+            <div class="pricing-period">por mes</div>
+            <ul class="pricing-features">
+                <li>Todo lo del plan Premium</li>
+                <li>4 sesiones con coach/mes</li>
+                <li>Plan nutricional incluido</li>
+                <li>Acceso prioritario</li>
+                <li>Locker personal</li>
+            </ul>
+            <a href="https://wa.me/523338156240?text=Hola%2C%20me%20interesa%20el%20plan%20Elite%20de%20FitZone%20(%24850%2Fmes)" target="_blank" class="btn-outline" style="display:block;text-align:center;">Empezar</a>
+        </div>
+    </div>
+</section>
+
+<!-- GALERÍA -->
+<section id="galeria">
+    <div class="section-tag reveal">Instalaciones</div>
+    <h2 class="section-title reveal d1">Nuestro espacio</h2>
+
+    <div class="gallery-grid">
+        <div class="gallery-item reveal d1">
+            <img class="gallery-img" src="assets/gym-pesas.webp" alt="Zona de pesas FitZone Gym" loading="lazy" width="800" height="533">
+            <div class="gallery-overlay"></div>
+        </div>
+        <div class="gallery-item reveal d2">
+            <img class="gallery-img" src="assets/gym-cardio.webp" alt="Área de cardio FitZone Gym" loading="lazy" width="687" height="1031">
+            <div class="gallery-overlay"></div>
+        </div>
+        <div class="gallery-item reveal d3">
+            <img class="gallery-img" src="assets/danielle.webp" alt="Instalaciones FitZone Gym" loading="lazy" width="800" height="533">
+            <div class="gallery-overlay"></div>
+        </div>
+        <div class="gallery-item reveal d4">
+            <img class="gallery-img" src="assets/samuel.webp" alt="Entrenamiento FitZone Gym" loading="lazy" width="800" height="1200">
+            <div class="gallery-overlay"></div>
+        </div>
+    </div>
+
+</section>
+
+<!-- CTA -->
+<section id="cta">
+    <div class="cta-glow"></div>
+    <div class="section-tag reveal" style="justify-content:center;">¿Listo para cambiar?</div>
+    <h2 class="cta-title reveal d1">Empieza Hoy.<br><span style="color:var(--orange)">Sin Excusas.</span></h2>
+    <p class="cta-desc reveal d2">
+        Únete a los cientos de miembros que ya transformaron su cuerpo y su vida en FitZone Gym.
+    </p>
+    <div class="cta-actions reveal d3">
+        <a href="https://wa.me/523338156240?text=Hola%2C%20quiero%20informaci%C3%B3n%20para%20unirme%20a%20FitZone" target="_blank" class="btn-primary">Quiero Unirme</a>
+        <a href="tel:+523338156240" class="btn-outline">Llamar Ahora</a>
+    </div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto">
+    <div class="contact-grid">
+        <div>
+            <div class="section-tag reveal">Contáctanos</div>
+            <h2 class="section-title reveal d1">Hablemos</h2>
+            <p class="section-desc reveal d2" style="margin-bottom:50px;max-width:420px;">
+                Visítanos en Guadalajara, llámanos o escríbenos. Tu primer día de prueba es gratis.
+            </p>
+
+            <div class="contact-items">
+                <a class="contact-item reveal d1" href="https://www.google.com/maps/search/?api=1&query=Guadalajara,+Jalisco,+México" target="_blank" rel="noopener">
+                    <div class="ci-icon">📍</div>
+                    <div class="ci-content">
+                        <h4>Ubicación</h4>
+                        <p>Guadalajara, Jalisco, México</p>
+                    </div>
+                </a>
+                <a class="contact-item reveal d2" href="tel:+523338156240">
+                    <div class="ci-icon">📞</div>
+                    <div class="ci-content">
+                        <h4>Teléfono</h4>
+                        <p>33 3815 6240</p>
+                    </div>
+                </a>
+                <a class="contact-item reveal d3" href="mailto:contacto@fitzonegym.mx">
+                    <div class="ci-icon">✉️</div>
+                    <div class="ci-content">
+                        <h4>Email</h4>
+                        <p>contacto@fitzonegym.mx</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="hours-box reveal d4" style="margin-top:40px;">
+                <h4>Horario</h4>
+                <div class="hours-row">
+                    <span>Lunes – Viernes</span>
+                    <span>6:00 am – 10:00 pm</span>
+                </div>
+                <div class="hours-row">
+                    <span>Sábados</span>
+                    <span>7:00 am – 8:00 pm</span>
+                </div>
+                <div class="hours-row">
+                    <span>Domingos</span>
+                    <span style="color:rgba(255,107,0,0.6);">Cerrado</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="reveal d2">
+            <form class="contact-form" onsubmit="handleSubmit(event)">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Nombre</label>
+                        <input type="text" placeholder="Tu nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Teléfono</label>
+                        <input type="tel" placeholder="(33) 3815 6240">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" placeholder="tu@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label>¿Qué te interesa?</label>
+                    <select>
+                        <option value="">Selecciona una opción</option>
+                        <option>Membresía Básica – $350/mes</option>
+                        <option>Membresía Premium – $550/mes</option>
+                        <option>Membresía Elite – $850/mes</option>
+                        <option>Entrenamiento Personal</option>
+                        <option>Clases Grupales</option>
+                        <option>Información General</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Mensaje</label>
+                    <textarea placeholder="¿Alguna pregunta o comentario?"></textarea>
+                </div>
+                <button type="submit" class="btn-primary"
+                    style="border:none;cursor:pointer;width:100%;font-size:0.92rem;letter-spacing:1.5px;">
+                    Enviar Mensaje →
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Mapa -->
+    <div class="map-container reveal">
+        <iframe
+            src="https://maps.google.com/maps?q=Guadalajara,+Jalisco,+Mexico&z=14&output=embed&hl=es"
+            title="Ubicación FitZone Gym — Guadalajara, Jalisco"
+            loading="lazy"
+            allowfullscreen
+            referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-logo">Fit<span>Zone</span> Gym</div>
+    <div class="footer-copy">© 2026 FitZone Gym · Guadalajara, Jalisco · Todos los derechos reservados</div>
+    <div class="footer-copy">contacto@fitzonegym.mx · 33 3815 6240</div>
+</footer>
+
+<!-- WhatsApp flotante -->
+<a href="https://wa.me/523338156240?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20FitZone%20Gym" class="wa-float" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+</a>
+
+<script>
+    const nav = document.getElementById('navbar');
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    const isDesktop = () => window.innerWidth > 768;
+
+    // Navbar scroll (passive = sin bloquear el hilo principal)
+    window.addEventListener('scroll', () => {
+        nav.classList.toggle('scrolled', window.scrollY > 60);
+    }, { passive: true });
+
+    // Hamburger toggle
+    hamburger.addEventListener('click', () => {
+        const open = navLinks.classList.toggle('open');
+        hamburger.classList.toggle('open', open);
+    });
+
+    // Smooth scroll + cierra menú
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+        link.addEventListener('click', function(e) {
+            const target = document.querySelector(this.getAttribute('href'));
+            if (!target) return;
+            e.preventDefault();
+            navLinks.classList.remove('open');
+            hamburger.classList.remove('open');
+            const navHeight = nav.offsetHeight;
+            const top = target.getBoundingClientRect().top + window.scrollY - navHeight;
+            window.scrollTo({ top, behavior: 'smooth' });
+        });
+    });
+
+    // Cierra menú al tocar fuera
+    document.addEventListener('click', (e) => {
+        if (!nav.contains(e.target) && navLinks.classList.contains('open')) {
+            navLinks.classList.remove('open');
+            hamburger.classList.remove('open');
+        }
+    });
+
+    // Scroll reveal
+    const revealObs = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right')
+        .forEach(el => revealObs.observe(el));
+
+    // Counter animation
+    const counterObs = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+            if (!e.isIntersecting) return;
+            const el = e.target;
+            const target = parseInt(el.dataset.count);
+            let current = 0;
+            const step = target / 90;
+            const timer = setInterval(() => {
+                current = Math.min(current + step, target);
+                el.textContent = Math.floor(current) + (target >= 100 ? '+' : '');
+                if (current >= target) clearInterval(timer);
+            }, 16);
+            counterObs.unobserve(el);
+        });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('[data-count]').forEach(el => counterObs.observe(el));
+
+    // Parallax hero — solo escritorio, via requestAnimationFrame
+    const heroContent = document.querySelector('.hero-content');
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+        if (!isDesktop() || !heroContent) return;
+        if (!ticking) {
+            requestAnimationFrame(() => {
+                const s = window.scrollY;
+                heroContent.style.transform = `translateY(${s * 0.28}px)`;
+                heroContent.style.opacity = Math.max(0, 1 - s / 550);
+                ticking = false;
+            });
+            ticking = true;
+        }
+    }, { passive: true });
+
+    // Form submit
+    function handleSubmit(e) {
+        e.preventDefault();
+        const btn = e.target.querySelector('button[type="submit"]');
+        btn.textContent = '✓ Mensaje enviado';
+        btn.style.background = '#1a9e3f';
+        setTimeout(() => {
+            btn.textContent = 'Enviar Mensaje →';
+            btn.style.background = '';
+            e.target.reset();
+        }, 3000);
+    }
+</script>
+
+</body>
+</html>
