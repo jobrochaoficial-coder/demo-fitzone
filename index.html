@@ -945,7 +945,10 @@
             .hero-actions .btn-outline { text-align: center; width: 100%; max-width: 300px; padding: 14px 20px; }
             /* Stats al fondo con padding propio, sin quedar cortados */
             .hero-stats {
-                position: static;
+                position: relative;
+                z-index: 2;
+                bottom: auto;
+                right: auto;
                 margin: 0;
                 padding: 24px 20px 28px;
                 display: flex;
